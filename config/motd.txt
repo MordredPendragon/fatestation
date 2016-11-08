@@ -1,5 +1,9 @@
 <!-- Most valid html will work in here, excluding images. -->
 
-<h1>Welcome to Space Station 13!</h1>
+<h1>Welcome to Fate/Station</h1>
 
 <i>This server is running a /tg/station 13 Git build.</i>
+
+Join our <a href=https://discord.gg/gFF5NNq>Discord</a> for updates, faq, and to chat with us!
+
+Holy Grail War Mode still in development! For now, just have fun.

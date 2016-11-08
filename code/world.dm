@@ -6,9 +6,9 @@
 	cache_lifespan = 7
 	hub = "Exadv1.spacestation13"
 	hub_password = "kMZy3U5jJHSiBQjr"
-	name = "/tg/ Station 13"
+	name = "Fate/Station"
 	fps = 20
-	visibility = 0
+	visibility = 1
 
 var/list/map_transition_config = MAP_TRANSITION_CONFIG
 
