@@ -147,7 +147,6 @@
 	name = "Ponytail 5"
 	icon_state = "hair_ponytail5"
 
-
 /datum/sprite_accessory/hair/sidetail
 	name = "Side Pony"
 	icon_state = "hair_sidetail"
@@ -496,6 +495,102 @@
 	name = "Boddicker"
 	icon_state = "hair_boddicker"
 
+/datum/sprite_accessory/hair/familyman
+	name = "The Family Man"
+	icon_state = "hair_thefamilyman"
+
+/datum/sprite_accessory/hair/dandypomp
+	name = "Dandy Pompadour"
+	icon_state = "hair_dandypompadour"
+
+/datum/sprite_accessory/hair/poofy
+	name = "Poofy"
+	icon_state = "hair_poofy"
+
+/datum/sprite_accessory/hair/crono
+	name = "Chrono"
+	icon_state = "hair_toriyama"
+
+/datum/sprite_accessory/hair/vegeta
+	name = "Vegeta"
+	icon_state = "hair_toriyama2"
+
+/datum/sprite_accessory/hair/cia
+	name = "CIA"
+	icon_state = "hair_cia"
+
+/datum/sprite_accessory/hair/mulder
+	name = "Mulder"
+	icon_state = "hair_mulder"
+
+/datum/sprite_accessory/hair/scully
+	name = "Scully"
+	icon_state = "hair_scully"
+
+/datum/sprite_accessory/hair/nitori
+	name = "Nitori"
+	icon_state = "hair_nitori"
+
+/datum/sprite_accessory/hair/joestar
+	name = "Joestar"
+	icon_state = "hair_joestar"
+
+/datum/sprite_accessory/hair/volaju
+	name = "Volaju"
+	icon_state = "hair_volaju"
+
+/datum/sprite_accessory/hair/longeralt2
+	name = "Long Hair Alt 2"
+	icon_state = "hair_longeralt2"
+
+/datum/sprite_accessory/hair/shortbangs
+	name = "Short Bangs"
+	icon_state = "hair_shortbangs"
+
+/datum/sprite_accessory/hair/halfshaved
+	name = "Half-Shaved Emo"
+	icon_state = "hair_halfshaved"
+
+/datum/sprite_accessory/hair/bun
+	name = "Low Bun"
+	icon_state = "hair_bun"
+
+/datum/sprite_accessory/hair/bun2
+	name = "High Bun"
+	icon_state = "hair_bun2"
+
+/datum/sprite_accessory/hair/doublebun
+	name = "Double-Bun"
+	icon_state = "hair_doublebun"
+
+/datum/sprite_accessory/hair/emo2
+	name = "Emo Alt"
+	icon_state = "hair_emo2"
+
+/datum/sprite_accessory/hair/rows
+	name = "Rows"
+	icon_state = "hair_rows1"
+
+/datum/sprite_accessory/hair/rows2
+	name = "Rows 2"
+	icon_state = "hair_rows2"
+
+/datum/sprite_accessory/hair/sleeze
+	name = "Sleeze"
+	icon_state = "hair_sleeze"
+
+/datum/sprite_accessory/hair/ponytail6
+	name = "Ponytail 6"
+	icon_state = "hair_ponytail6"
+
+/datum/sprite_accessory/hair/ponytail7
+	name = "Ponytail 7"
+	icon_state = "hair_ponytail7"
+
+/datum/sprite_accessory/hair/twintail
+	name = "Twintail"
+	icon_state = "hair_twintail"
+
 
 /////////////////////////////
 // Facial Hair Definitions //
@@ -580,6 +675,10 @@
 /datum/sprite_accessory/facial_hair/fu
 	name = "Fu Manchu"
 	icon_state = "facial_fumanchu"
+
+/datum/sprite_accessory/facial_hair/volaju
+	name = "Volaju"
+	icon_state = "facial_volaju"
 
 ///////////////////////////
 // Underwear Definitions //
