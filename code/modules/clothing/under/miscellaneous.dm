@@ -547,6 +547,14 @@
 	item_color = "geisha"
 	can_adjust = 0
 
+/obj/item/clothing/under/bolerodress
+	name = "bolero dress"
+	desc = "Mordred is the cutest."
+	icon_state = "bolerodress"
+	item_color = "bolerodress"
+	fitted = FEMALE_UNIFORM_TOP
+	can_adjust = 0
+
 /obj/item/clothing/under/plasmaman
 	name = "Plasma-man Jumpsuit"
 	desc = "A specially designed suit that allows Plasma based life forms to exist in an oxygenated environment."
