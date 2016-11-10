@@ -55,6 +55,10 @@
 				message = "<B>[src]</B> appears to cough!"
 			else
 				if (!muzzled)
+					var/sound = pick('sound/misc/cough1.ogg', 'sound/misc/cough2.ogg', 'sound/misc/cough3.ogg', 'sound/misc/cough4.ogg')
+					if(gender == FEMALE)
+						sound = pick('sound/misc/cough_f1.ogg', 'sound/misc/cough_f2.ogg', 'sound/misc/cough_f3.ogg')
+					playsound(loc, sound, 50, 1, 5)
 					message = "<B>[src]</B> coughs!"
 					m_type = 2
 				else
@@ -121,6 +125,11 @@
 					message = "<B>[src]</B> gives daps to [M]."
 				else
 					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps [p_them()]self. Shameful."
+
+		if ("dab")
+			m_type = 1
+			if (!src.restrained())
+				message = "<B>[src]</B> does a sick as fuck dab!"
 
 		if ("eyebrow")
 			message = "<B>[src]</B> raises an eyebrow."
@@ -279,6 +288,10 @@
 			if (miming)
 				message = "<B>[src]</B> acts out a scream!"
 			else
+				var/sound = pick('sound/misc/scream_m1.ogg', 'sound/misc/scream_m2.ogg')
+				if(gender == FEMALE)
+					sound = pick('sound/misc/scream_f1.ogg', 'sound/misc/scream_f2.ogg', 'sound/misc/scream_f3.ogg')
+				playsound(loc, sound, 50, 1, 5)
 				..(act)
 
 		if ("shiver","shivers")
@@ -313,6 +326,12 @@
 			if (miming)
 				message = "<B>[src]</B> sneezes."
 			else
+				var/sound = pick('sound/misc/malesneeze01.ogg', 'sound/misc/malesneeze02.ogg', 'sound/misc/malesneeze03.ogg')
+				if(gender == FEMALE)
+					sound = pick('sound/misc/femsneeze01.ogg', 'sound/misc/femsneeze02.ogg')
+				playsound(loc, sound, 50, 1, 5)
+				message = "<B>[src]</B> sneezes."
+				m_type = 2
 				..(act)
 
 		if ("sniff","sniffs")
@@ -346,7 +365,7 @@
 				src << "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>"
 
 		if ("help") //This can stay at the bottom.
-			src << "Help for human emotes. You can use these emotes with say \"*emote\":\n\naflap, airguitar, blink, blink_r, blush, bow-(none)/mob, burp, choke, chuckle, clap, collapse, cough, cry, custom, dance, dap, deathgasp, drool, eyebrow, faint, flap, frown, gasp, giggle, glare-(none)/mob, grin, groan, grumble, handshake, hug-(none)/mob, jump, laugh, look-(none)/mob, me, moan, mumble, nod, pale, point-(atom), raise, salute, scream, shake, shiver, shrug, sigh, signal-#1-10, sit, smile, sneeze, sniff, snore, stare-(none)/mob, sulk, sway, tremble, twitch, twitch_s, wave, whimper, wink, wings, wag, yawn"
+			src << "Help for human emotes. You can use these emotes with say \"*emote\":\n\naflap, airguitar, blink, blink_r, blush, bow-(none)/mob, burp, choke, chuckle, clap, collapse, cough, cry, custom, dab, dance, dap, deathgasp, drool, eyebrow, faint, flap, frown, gasp, giggle, glare-(none)/mob, grin, groan, grumble, handshake, hug-(none)/mob, jump, laugh, look-(none)/mob, me, moan, mumble, nod, pale, point-(atom), raise, salute, scream, shake, shiver, shrug, sigh, signal-#1-10, sit, smile, sneeze, sniff, snore, stare-(none)/mob, sulk, sway, tremble, twitch, twitch_s, wave, whimper, wink, wings, wag, yawn"
 
 		else
 			..(act)
