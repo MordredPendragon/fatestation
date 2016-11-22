@@ -56185,11 +56185,11 @@
 /turf/open/floor/plating/airless,
 /area/engine/engineering)
 "csL" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
+/obj/machinery/party/musicwriter{
+	pixel_y = 32
 	},
-/turf/open/space,
-/area/space)
+/turf/open/floor/plasteel/bar,
+/area/crew_quarters/bar)
 "csM" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
@@ -56224,12 +56224,9 @@
 /turf/open/space,
 /area/space/nearstation)
 "csT" = (
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
-	},
-/turf/open/floor/plating,
-/area/ai_monitored/turret_protected/aisat_interior)
+/obj/machinery/party/turntable,
+/turf/open/floor/plasteel/bar,
+/area/crew_quarters/bar)
 "csU" = (
 /obj/structure/transit_tube/station/reverse,
 /turf/open/floor/plating,
@@ -96793,8 +96790,8 @@ aKO
 aMw
 aNI
 aMw
-aOK
-acN
+aJC
+csL
 acN
 acN
 acN
@@ -97051,8 +97048,8 @@ aJC
 aJC
 aJC
 aJC
+csT
 aXj
-aVy
 aSY
 aVy
 aVy
