@@ -15,8 +15,8 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 	var/desc = "Ancient Ratvarian lore. This piece seems particularly mundane."
 	var/list/invocations = list() //Spoken over time in the ancient language of Ratvar. See clock_unsorted.dm for more details on the language and how to make it.
 	var/channel_time = 10 //In deciseconds, how long a ritual takes to chant
-	var/list/required_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GUVAX_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0) //Components required
-	var/list/consumed_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GUVAX_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0) //Components consumed
+	var/list/required_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GEIS_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0) //Components required
+	var/list/consumed_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GEIS_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0) //Components consumed
 	var/obj/item/clockwork/slab/slab //The parent clockwork slab
 	var/mob/living/invoker //The slab's holder
 	var/whispered = FALSE //If the invocation is whispered rather than spoken aloud
@@ -31,9 +31,9 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 	var/sort_priority = 1 //what position the scripture should have in a list of scripture. Should be based off of component costs/reqs, but you can't initial() lists.
 
 //components the scripture used from a slab
-	var/list/used_slab_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GUVAX_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0)
+	var/list/used_slab_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GEIS_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0)
 //components the scripture used from the global cache
-	var/list/used_cache_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GUVAX_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0)
+	var/list/used_cache_components = list(BELLIGERENT_EYE = 0, VANGUARD_COGWHEEL = 0, GEIS_CAPACITOR = 0, REPLICANT_ALLOY = 0, HIEROPHANT_ANSIBLE = 0)
 
 //messages for offstation scripture recital, courtesy ratvar's generals(and neovgre)
 	var/static/list/neovgre_penalty = list("Go to the station.", "Useless.", "Don't waste time.", "Pathetic.", "Wasteful.")
@@ -52,7 +52,9 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 			invoker << "<span class='warning'>[slab] refuses to work, displaying the message: \"[slab.busy]!\"</span>"
 			return FALSE
 		slab.busy = "Invocation ([name]) in progress"
-		if(!ratvar_awakens && !slab.no_cost)
+		if(ratvar_awakens)
+			channel_time *= 0.5 //if ratvar has awoken, half channel time and no cost
+		else if(!slab.no_cost)
 			for(var/i in consumed_components)
 				if(consumed_components[i])
 					for(var/j in 1 to consumed_components[i])
@@ -62,8 +64,7 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 						else
 							clockwork_component_cache[i]--
 							used_cache_components[i]++
-		else
-			channel_time *= 0.5 //if ratvar has awoken or the slab has no cost, half channel time
+		channel_time *= slab.speed_multiplier
 		if(!recital() || !check_special_requirements() || !scripture_effects()) //if we fail any of these, refund components used
 			for(var/i in used_slab_components)
 				if(used_slab_components[i])
@@ -74,7 +75,7 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 			for(var/i in used_cache_components)
 				if(used_cache_components[i])
 					clockwork_component_cache[i] += consumed_components[i]
-		else if(slab && !slab.no_cost) //if the slab exists and isn't debug, log the scripture as being used
+		else if(slab && !slab.no_cost && !ratvar_awakens) //if the slab exists and isn't debug and ratvar isn't up, log the scripture as being used
 			feedback_add_details("clockcult_scripture_recited", name)
 	if(slab)
 		slab.busy = null
@@ -126,7 +127,7 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 			if(VANGUARD_COGWHEEL)
 				message = pick(inathneq_penalty)
 				ratvarian_prob = 30
-			if(GUVAX_CAPACITOR)
+			if(GEIS_CAPACITOR)
 				message = pick(sevtug_penalty)
 				ratvarian_prob = 50
 			if(REPLICANT_ALLOY)
@@ -251,6 +252,11 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 	var/ranged_type = /obj/effect/proc_holder/slab
 	var/ranged_message = "This is a huge goddamn bug, how'd you cast this?"
 	var/timeout_time = 0
+	var/datum/progressbar/progbar
+
+/datum/clockwork_scripture/ranged_ability/Destroy()
+	qdel(progbar)
+	return ..()
 
 /datum/clockwork_scripture/ranged_ability/scripture_effects()
 	slab.icon_state = slab_icon
@@ -260,8 +266,15 @@ Judgement: 12 servants, 5 caches, 300 CV, and any existing AIs are converted or 
 	invoker.update_inv_hands()
 	var/end_time = world.time + timeout_time
 	var/successful = FALSE
+	if(timeout_time)
+		progbar = new(invoker, timeout_time, slab)
 	while(slab && slab.slab_ability && !slab.slab_ability.finished && (slab.slab_ability.in_progress || !timeout_time || world.time <= end_time))
 		successful = slab.slab_ability.successful
+		if(progbar)
+			if(slab.slab_ability.in_progress)
+				qdel(progbar)
+			else
+				progbar.update(end_time - world.time)
 		sleep(1)
 	if(slab)
 		if(slab.slab_ability && !slab.slab_ability.finished)
